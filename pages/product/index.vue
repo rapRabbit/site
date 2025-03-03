@@ -111,13 +111,10 @@
               class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105"
             >
               <NuxtLink :to="`/product/${product.id}`">
-                <NuxtImg
+                <img
                   :src="product.image"
                   :alt="product.name"
                   class="w-full h-48 object-cover"
-                  width="400"
-                  height="300"
-                  placeholder
                 />
                 <div class="p-4">
                   <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ product.name }}</h3>
@@ -223,20 +220,72 @@ const currentPage = ref(1)
 const perPage = ref(12)
 
 // 模拟产品数据
-const products = ref(Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  name: `产品 ${i + 1}`,
-  description: '这是一个高品质的产品，具有多种功能和优点。适合各种场景使用，满足您的各种需求。',
-  price: Math.floor(Math.random() * 900) + 100,
-  image: `/images/product-${(i % 6) + 1}.jpg`,
-  category_id: Math.floor(Math.random() * 5) + 1
-})))
+const luxuryBags = [
+  {
+    id: 1,
+    name: 'Chanel Classic Flap 经典翻盖包',
+    description: '香奈儿经典翻盖包，优雅的设计和精湛的工艺，是时尚界的永恒经典。',
+    price: 29980,
+    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80',
+    category_id: 1
+  },
+  {
+    id: 2,
+    name: 'Louis Vuitton Neverfull MM 手提包',
+    description: '路易威登Neverfull MM手提包，宽敞实用，经典的Monogram图案，是日常使用的理想选择。',
+    price: 18500,
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80',
+    category_id: 1
+  },
+  {
+    id: 3,
+    name: 'Hermès Birkin 30 手提包',
+    description: '爱马仕Birkin 30手提包，采用顶级皮革制作，手工缝制，是奢华与品质的象征。',
+    price: 35800,
+    image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80',
+    category_id: 1
+  },
+  {
+    id: 4,
+    name: 'Gucci GG Marmont 链条包',
+    description: '古驰GG Marmont链条包，柔软的绗缝皮革和标志性的双G logo，时尚而经典。',
+    price: 7000,
+    image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80',
+    category_id: 2
+  },
+  {
+    id: 5,
+    name: 'Dior Lady Dior 手提包',
+    description: '迪奥Lady Dior手提包，经典的菱格纹和金属字母吊饰，优雅而精致。',
+    price: 25000,
+    image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&h=500&q=80',
+    category_id: 2
+  }
+];
+
+// 生成更多产品数据
+const products = ref([
+  ...luxuryBags,
+  ...Array.from({ length: 45 }, (_, i) => {
+    const bagIndex = i % luxuryBags.length;
+    const bag = luxuryBags[bagIndex];
+    return {
+      id: i + 6,
+      name: `${bag.name} - 限量版 ${i + 1}`,
+      description: bag.description,
+      price: Math.floor(bag.price * (0.9 + Math.random() * 0.3)),
+      image: bag.image,
+      category_id: Math.floor(Math.random() * 5) + 1
+    };
+  })
+]);
 
 // 获取产品数据
-const { data: fetchedProducts, pending } = await useFetch('/api/products')
-if (fetchedProducts.value) {
-  products.value = fetchedProducts.value
-}
+// const { data: fetchedProducts, pending } = await useFetch('/api/products')
+// if (fetchedProducts.value) {
+//   products.value = fetchedProducts.value
+// }
+const pending = ref(false)
 
 // 计算筛选后的产品
 const filteredProducts = computed(() => {

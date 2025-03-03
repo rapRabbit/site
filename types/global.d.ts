@@ -31,33 +31,36 @@ declare global {
   // Nuxt 3 组合式 API
   const useRouter: any
   const useRoute: any
-  const definePageMeta: any
-  const useRuntimeConfig: any
-  const useFetch: any
-  const useAsyncData: any
-  const useLazyAsyncData: any
-  const useLazyFetch: any
+  const useState: any
   const useHead: any
   const useSeoMeta: any
+  const useFetch: any
+  const useAsyncData: any
+  const useRuntimeConfig: any
+  const useColorMode: any
+  const navigateTo: any
+  const definePageMeta: any
   const useError: any
   const createError: any
   const showError: any
   const clearError: any
-  const navigateTo: any
-  const abortNavigation: any
   const defineNuxtComponent: any
   const defineNuxtPlugin: any
   const defineNuxtConfig: any
   const defineAppConfig: any
-  const useColorMode: any
+  const acceptHMRUpdate: any
+  const storeToRefs: any
   
   // Pinia
   const defineStore: any
-  const storeToRefs: any
-  const acceptHMRUpdate: any
   
   // Node.js 全局变量
-  const process: any
+  const process: {
+    env: {
+      NODE_ENV: string
+      [key: string]: string | undefined
+    }
+  }
 }
 
 export {} 

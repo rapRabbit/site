@@ -11,13 +11,10 @@
             { 'opacity-100': currentSlide === index, 'opacity-0': currentSlide !== index }
           ]"
         >
-          <NuxtImg
+          <img
             :src="slide.image"
             alt="Banner"
             class="w-full h-full object-cover"
-            width="1920"
-            height="500"
-            placeholder
           />
           <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center">
             <div class="container mx-auto px-4">
@@ -67,13 +64,10 @@
             :key="index"
             class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105"
           >
-            <NuxtImg
+            <img
               :src="category.image"
               :alt="category.name"
               class="w-full h-48 object-cover"
-              width="400"
-              height="200"
-              placeholder
             />
             <div class="p-6">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ category.name }}</h3>
@@ -96,13 +90,10 @@
       <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center">
           <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-            <NuxtImg
-              src="/images/about-us.jpg"
+            <img
+              src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
               alt="关于我们"
               class="rounded-lg shadow-lg w-full"
-              width="600"
-              height="400"
-              placeholder
             />
           </div>
           <div class="md:w-1/2">
@@ -147,13 +138,12 @@
             </div>
             <p class="text-gray-600 dark:text-gray-400 mb-6 italic">{{ testimonial.content }}</p>
             <div class="flex items-center">
-              <NuxtImg
-                :src="testimonial.avatar"
+              <img
+                :src="testimonial.image"
                 :alt="testimonial.name"
                 class="w-12 h-12 rounded-full object-cover mr-4"
                 width="48"
                 height="48"
-                placeholder
               />
               <div>
                 <h4 class="font-semibold text-gray-900 dark:text-white">{{ testimonial.name }}</h4>
@@ -182,21 +172,21 @@ const slides = [
   {
     title: '高品质产品，全球配送',
     description: '我们提供多种高品质产品，并支持全球配送，让您无论身在何处都能享受我们的服务。',
-    image: '/images/banner-1.jpg',
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
     buttonText: '浏览产品',
     buttonLink: '/product'
   },
   {
     title: '专业团队，优质服务',
     description: '我们的团队由经验丰富的专业人士组成，致力于为您提供最优质的服务。',
-    image: '/images/banner-2.jpg',
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
     buttonText: '了解更多',
     buttonLink: '/about'
   },
   {
     title: '创新技术，引领行业',
     description: '我们不断创新，采用最新技术，引领行业发展，为客户创造更多价值。',
-    image: '/images/banner-3.jpg',
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
     buttonText: '联系我们',
     buttonLink: '/contact'
   }
@@ -207,19 +197,19 @@ const categories = [
   {
     name: '电子产品',
     description: '高品质电子产品，包括智能手机、平板电脑、笔记本电脑等。',
-    image: '/images/category-1.jpg',
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
     link: '/product/electronics'
   },
   {
     name: '家居用品',
     description: '精美家居用品，让您的家更舒适、更美丽。',
-    image: '/images/category-2.jpg',
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
     link: '/product/home'
   },
   {
     name: '时尚服饰',
     description: '时尚服饰，展现您的个人风格和魅力。',
-    image: '/images/category-3.jpg',
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
     link: '/product/fashion'
   }
 ]
@@ -230,19 +220,19 @@ const testimonials = [
     content: '我非常满意他们的产品和服务。产品质量很好，客服也很专业，解决问题迅速。强烈推荐！',
     name: 'John Smith',
     position: 'CEO, Tech Solutions',
-    avatar: '/images/avatar-1.jpg'
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
   },
   {
     content: '他们的产品超出了我的预期。价格合理，质量上乘，配送也很快。我会继续购买他们的产品。',
     name: 'Emily Johnson',
     position: 'Marketing Director, Global Brands',
-    avatar: '/images/avatar-2.jpg'
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
   },
   {
     content: '作为一个长期客户，我对他们的服务一直很满意。他们总是能及时响应我的需求，提供专业的解决方案。',
     name: 'Michael Chen',
     position: 'Purchasing Manager, Retail Group',
-    avatar: '/images/avatar-3.jpg'
+    image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
   }
 ]
 

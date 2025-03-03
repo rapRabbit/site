@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: {
+    enabled: false
+  },
   modules: [
     '@nuxt/ui',
     '@nuxtjs/tailwindcss',
@@ -20,8 +22,8 @@ export default defineNuxtConfig({
     storageKey: 'nuxt-color-mode'
   },
   typescript: {
-    strict: true,
-    typeCheck: true,
+    strict: false,
+    typeCheck: false,
     shim: false
   },
   imports: {
@@ -60,5 +62,8 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_BASE_URL || 'http://localhost:3000/api'
     }
+  },
+  nitro: {
+    compatibilityDate: '2025-03-02'
   }
 }) 

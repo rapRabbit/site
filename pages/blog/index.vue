@@ -22,18 +22,15 @@
             <div
               v-for="post in paginatedPosts"
               :key="post.id"
-              class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden"
+              class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105"
             >
               <div class="md:flex">
                 <div class="md:w-1/3">
                   <NuxtLink :to="`/blog/${post.slug}`">
-                    <NuxtImg
-                      :src="post.image"
+                    <img
+                      src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
                       :alt="post.title"
-                      class="w-full h-48 md:h-full object-cover"
-                      width="400"
-                      height="300"
-                      placeholder
+                      class="w-full h-48 object-cover"
                     />
                   </NuxtLink>
                 </div>
@@ -49,14 +46,11 @@
                     </NuxtLink>
                   </h2>
                   <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">{{ post.excerpt }}</p>
-                  <div class="flex items-center">
-                    <NuxtImg
-                      :src="post.author.avatar"
+                  <div class="flex items-center mt-4">
+                    <img
+                      src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
                       :alt="post.author.name"
-                      class="w-10 h-10 rounded-full object-cover mr-3"
-                      width="40"
-                      height="40"
-                      placeholder
+                      class="w-10 h-10 rounded-full mr-3"
                     />
                     <div>
                       <p class="text-sm font-medium text-gray-900 dark:text-white">{{ post.author.name }}</p>
@@ -207,32 +201,47 @@ const currentPage = ref(1)
 const perPage = ref(5)
 
 // 获取博客文章数据
-const { data: posts, pending, error } = await useFetch('/api/blog/posts')
+// const { data: posts, pending, error } = await useFetch('/api/blog/posts')
+// 使用默认数据代替
+const posts = ref(Array.from({ length: 15 }, (_, i) => ({
+  id: i + 1,
+  title: `博客文章 ${i + 1}`,
+  slug: `blog-post-${i + 1}`,
+  excerpt: '这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。',
+  content: '这是文章的完整内容...',
+  image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
+  published_at: new Date(Date.now() - i * 86400000).toISOString(),
+  category: ['行业动态', '产品技巧', '公司新闻', '案例分析', '市场趋势'][i % 5],
+  author: {
+    name: ['张三', '李四', '王五', '赵六', '钱七'][i % 5],
+    title: ['市场经理', '产品经理', '技术总监', '销售总监', 'CEO'][i % 5],
+    avatar: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png'
+  },
+  tags: ['外贸', '产品', '技术', '市场', '创新', '趋势'].sort(() => Math.random() - 0.5).slice(0, Math.floor(Math.random() * 4) + 1)
+})))
+const pending = ref(false)
+const error = ref(null)
 
 // 如果没有真实 API，使用模拟数据
-if (!posts.value) {
-  // 模拟博客文章数据
-  posts.value = Array.from({ length: 15 }, (_, i) => ({
-    id: i + 1,
-    title: `博客文章 ${i + 1}`,
-    slug: `blog-post-${i + 1}`,
-    excerpt: '这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。',
-    content: '这是文章的完整内容...',
-    image: `/images/blog-${(i % 6) + 1}.jpg`,
-    published_at: new Date(Date.now() - i * 86400000).toISOString(),
-    category: ['行业动态', '产品技巧', '公司新闻', '案例分析', '市场趋势'][i % 5],
-    author: {
-      name: ['张三', '李四', '王五', '赵六', '钱七'][i % 5],
-      title: ['市场经理', '产品经理', '技术总监', '销售总监', 'CEO'][i % 5],
-      avatar: `/images/avatar-${(i % 5) + 1}.jpg`
-    },
-    tags: [
-      ['外贸', '电子商务', '市场营销'][i % 3],
-      ['产品开发', '客户服务', '国际贸易'][i % 3],
-      ['技术创新', '行业趋势', '案例分析'][i % 3]
-    ]
-  }))
-}
+// if (!posts.value) {
+//   // 模拟博客文章数据
+//   posts.value = Array.from({ length: 15 }, (_, i) => ({
+//     id: i + 1,
+//     title: `博客文章 ${i + 1}`,
+//     slug: `blog-post-${i + 1}`,
+//     excerpt: '这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。',
+//     content: '这是文章的完整内容...',
+//     image: `/images/blog-${(i % 6) + 1}.jpg`,
+//     published_at: new Date(Date.now() - i * 86400000).toISOString(),
+//     category: ['行业动态', '产品技巧', '公司新闻', '案例分析', '市场趋势'][i % 5],
+//     author: {
+//       name: ['张三', '李四', '王五', '赵六', '钱七'][i % 5],
+//       title: ['市场经理', '产品经理', '技术总监', '销售总监', 'CEO'][i % 5],
+//       avatar: `/images/avatar-${(i % 3) + 1}.jpg`
+//     },
+//     tags: ['外贸', '产品', '技术', '市场', '创新', '趋势'].sort(() => Math.random() - 0.5).slice(0, Math.floor(Math.random() * 4) + 1)
+//   }))
+// }
 
 // 分类数据
 const categories = [

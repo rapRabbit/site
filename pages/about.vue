@@ -25,7 +25,7 @@
             </p>
           </div>
           <div class="md:w-1/2">
-            <img src="/images/about/company.jpg" alt="公司照片" class="rounded-lg shadow-md w-full h-auto" />
+            <img src="https://www.nuxtjs.cn/NUXTJS-logo-800.png" alt="公司照片" class="rounded-lg shadow-md w-full h-auto" />
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">我们的团队</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           <div v-for="(member, index) in teamMembers" :key="index" class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-            <img :src="member.image" :alt="member.name" class="w-full h-64 object-cover object-center" />
+            <img src="https://www.nuxtjs.cn/NUXTJS-logo-800.png" :alt="member.name" class="w-full h-64 object-cover object-center" />
             <div class="p-6">
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">{{ member.name }}</h3>
               <p class="text-primary-600 dark:text-primary-400 mb-3">{{ member.position }}</p>
@@ -136,7 +136,7 @@
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">合作伙伴</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           <div v-for="(partner, index) in partners" :key="index" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex items-center justify-center">
-            <img :src="partner.logo" :alt="partner.name" class="max-h-16" />
+            <img src="https://www.nuxtjs.cn/NUXTJS-logo-800.png" :alt="partner.name" class="max-h-16" />
           </div>
         </div>
       </div>

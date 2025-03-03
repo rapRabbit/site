@@ -8,6 +8,8 @@ export default defineAppConfig({
   },
   // UI 配置
   ui: {
+    primary: 'blue',
+    gray: 'slate',
     // 全局 UI 配置
     notifications: {
       position: 'top-right',

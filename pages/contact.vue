@@ -79,7 +79,7 @@
             </div>
             
             <!-- 主题 -->
-            <div>
+            <div v-if="false">
               <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 主题 <span class="text-red-500">*</span>
               </label>

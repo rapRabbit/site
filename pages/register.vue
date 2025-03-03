@@ -128,7 +128,7 @@
       </form>
       
       <!-- 分隔线 -->
-      <div class="mt-6 relative">
+      <div v-if="false" class="mt-6 relative">
         <div class="absolute inset-0 flex items-center">
           <div class="w-full border-t border-gray-300 dark:border-gray-700"></div>
         </div>
@@ -140,7 +140,7 @@
       </div>
       
       <!-- 第三方登录 -->
-      <div class="mt-6 grid grid-cols-3 gap-3">
+      <div v-if="false" class="mt-6 grid grid-cols-3 gap-3">
         <button
           type="button"
           class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"

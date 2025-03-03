@@ -23,13 +23,10 @@
           <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">{{ post.title }}</h1>
             <div class="flex items-center mb-6">
-              <NuxtImg
-                :src="post.author.avatar"
+              <img
+                src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
                 :alt="post.author.name"
-                class="w-12 h-12 rounded-full object-cover mr-4"
-                width="48"
-                height="48"
-                placeholder
+                class="w-12 h-12 rounded-full mr-4"
               />
               <div>
                 <p class="font-medium text-gray-900 dark:text-white">{{ post.author.name }}</p>
@@ -44,13 +41,10 @@
           
           <!-- 特色图片 -->
           <div class="mb-8">
-            <NuxtImg
-              :src="post.image"
+            <img
+              src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
               :alt="post.title"
-              class="w-full h-auto rounded-lg"
-              width="800"
-              height="450"
-              placeholder
+              class="w-full h-auto rounded-lg shadow-md"
             />
           </div>
           
@@ -100,13 +94,10 @@
           <!-- 作者信息 -->
           <div class="mb-8 bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
             <div class="flex items-start">
-              <NuxtImg
-                :src="post.author.avatar"
+              <img
+                src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
                 :alt="post.author.name"
                 class="w-16 h-16 rounded-full object-cover mr-6"
-                width="64"
-                height="64"
-                placeholder
               />
               <div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ post.author.name }}</h3>
@@ -128,13 +119,10 @@
                 class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden"
               >
                 <NuxtLink :to="`/blog/${relatedPost.slug}`">
-                  <NuxtImg
-                    :src="relatedPost.image"
+                  <img
+                    src="https://www.nuxtjs.cn/NUXTJS-logo-800.png"
                     :alt="relatedPost.title"
-                    class="w-full h-48 object-cover"
-                    width="400"
-                    height="200"
-                    placeholder
+                    class="w-full h-40 object-cover"
                   />
                   <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ relatedPost.title }}</h3>
@@ -242,7 +230,39 @@ useSeoMeta({
 const searchQuery = ref('')
 
 // 获取文章数据
-const { data: post, pending, error } = await useFetch(`/api/blog/posts/${slug}`)
+// const { data: post, pending, error } = await useFetch(`/api/blog/posts/${slug}`)
+// 使用默认数据代替
+const post = ref({
+  id: 1,
+  title: `博客文章 ${slug}`,
+  slug: slug,
+  excerpt: '这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。',
+  content: `
+    <p>这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。</p>
+    <h2>行业趋势</h2>
+    <p>随着全球化的深入发展，外贸行业正在经历前所未有的变革。数字化转型、跨境电商的兴起以及消费者行为的变化，都在重塑外贸的格局。</p>
+    <p>企业需要适应这些变化，采用新的策略和工具，才能在激烈的竞争中脱颖而出。</p>
+    <h2>技术创新</h2>
+    <p>人工智能、大数据分析和区块链等技术正在改变外贸的运作方式。这些技术可以帮助企业优化供应链、提高效率、降低成本，并提供更好的客户体验。</p>
+    <p>例如，AI可以用于预测市场趋势，大数据分析可以帮助企业了解客户需求，区块链可以提高交易的透明度和安全性。</p>
+    <h2>市场变化</h2>
+    <p>新兴市场的崛起、贸易政策的变化以及环保意识的增强，都在影响外贸市场的发展方向。企业需要密切关注这些变化，并相应地调整自己的策略。</p>
+    <p>同时，消费者越来越注重产品的质量、可持续性和社会责任，这也要求企业在产品开发和营销方面做出相应的调整。</p>
+    <h2>结论</h2>
+    <p>外贸行业正处于变革的时代，挑战与机遇并存。企业需要保持敏锐的洞察力，不断创新，才能在这个快速变化的环境中取得成功。</p>
+  `,
+  image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
+  published_at: new Date().toISOString(),
+  category: '行业动态',
+  author: {
+    name: '张三',
+    title: '市场经理',
+    avatar: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png'
+  },
+  tags: ['外贸', '产品', '技术', '市场', '创新', '趋势']
+})
+const pending = ref(false)
+const error = ref(null)
 
 // 更新页面元数据
 watchEffect(() => {
@@ -258,61 +278,26 @@ watchEffect(() => {
 })
 
 // 获取相关文章
-const { data: relatedPosts } = await useFetch('/api/blog/related', {
-  query: {
-    slug,
-    limit: 2
+// const { data: relatedPosts } = await useFetch('/api/blog/related', {
+//   query: {
+//     slug,
+//     limit: 3
+//   }
+// })
+// 使用默认数据代替
+const relatedPosts = ref(Array.from({ length: 3 }, (_, i) => ({
+  id: i + 2,
+  title: `相关文章 ${i + 1}`,
+  slug: `related-post-${i + 1}`,
+  excerpt: '这是一篇相关的博客文章，内容与当前文章主题相关。',
+  image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
+  published_at: new Date(Date.now() - i * 86400000).toISOString(),
+  category: ['行业动态', '产品技巧', '公司新闻'][i % 3],
+  author: {
+    name: ['李四', '王五', '赵六'][i % 3],
+    avatar: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png'
   }
-})
-
-// 如果没有真实 API，使用模拟数据
-if (!post.value) {
-  // 模拟文章数据
-  post.value = {
-    id: 1,
-    title: `博客文章 ${slug}`,
-    slug,
-    excerpt: '这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。',
-    content: `
-      <p>这是一篇关于行业最新动态的博客文章。在这篇文章中，我们将探讨行业趋势、技术创新和市场变化。</p>
-      <h2>行业趋势</h2>
-      <p>随着全球化的深入发展，外贸行业正在经历前所未有的变革。数字化转型、跨境电商的兴起以及消费者行为的变化，都在重塑外贸行业的格局。</p>
-      <p>企业需要适应这些变化，采用新的商业模式和营销策略，才能在激烈的竞争中脱颖而出。</p>
-      <h2>技术创新</h2>
-      <p>人工智能、大数据分析和区块链等技术正在改变外贸行业的运作方式。这些技术可以帮助企业优化供应链、提高运营效率、降低成本，并提供更好的客户体验。</p>
-      <p>例如，人工智能可以用于预测市场需求、优化库存管理和个性化营销；大数据分析可以帮助企业了解客户需求和行为模式；区块链可以提高交易的透明度和安全性。</p>
-      <h2>市场变化</h2>
-      <p>全球市场正在经历深刻的变化。新兴市场的崛起、贸易政策的调整以及地缘政治的变化，都在影响外贸企业的发展战略。</p>
-      <p>企业需要密切关注这些变化，灵活调整策略，开拓新市场，分散风险，才能在复杂多变的国际环境中保持竞争力。</p>
-      <h2>结论</h2>
-      <p>面对行业的变革，外贸企业需要保持开放的心态，不断学习和创新，才能抓住机遇，应对挑战，实现可持续发展。</p>
-    `,
-    image: `/images/blog-${(parseInt(slug.replace(/[^0-9]/g, '')) % 6) + 1}.jpg`,
-    published_at: new Date().toISOString(),
-    category: '行业动态',
-    author: {
-      name: '张三',
-      title: '市场经理',
-      avatar: '/images/avatar-1.jpg',
-      bio: '资深市场专家，拥有10年外贸行业经验，专注于市场趋势分析和营销策略研究。'
-    },
-    tags: ['外贸', '电子商务', '市场营销']
-  }
-}
-
-// 如果没有相关文章数据，使用模拟数据
-if (!relatedPosts.value) {
-  // 模拟相关文章数据
-  relatedPosts.value = Array.from({ length: 2 }, (_, i) => ({
-    id: i + 2,
-    title: `相关文章 ${i + 1}`,
-    slug: `related-post-${i + 1}`,
-    excerpt: '这是一篇与当前文章相关的博客文章，探讨类似的主题和内容。',
-    image: `/images/blog-${((parseInt(slug.replace(/[^0-9]/g, '')) + i + 1) % 6) + 1}.jpg`,
-    published_at: new Date(Date.now() - i * 86400000).toISOString(),
-    category: '行业动态'
-  }))
-}
+})))
 
 // 分类数据
 const categories = [
@@ -337,21 +322,21 @@ const tags = [
 ]
 
 // 获取最新文章
-const { data: allPosts } = await useFetch('/api/blog/posts')
-
-// 如果没有所有文章数据，使用模拟数据
-if (!allPosts.value) {
-  // 模拟所有文章数据
-  allPosts.value = Array.from({ length: 10 }, (_, i) => ({
-    id: i + 1,
-    title: `博客文章 ${i + 1}`,
-    slug: `blog-post-${i + 1}`,
-    excerpt: '这是一篇博客文章的摘要。',
-    image: `/images/blog-${(i % 6) + 1}.jpg`,
-    published_at: new Date(Date.now() - i * 86400000).toISOString(),
-    category: ['行业动态', '产品技巧', '公司新闻', '案例分析', '市场趋势'][i % 5]
-  }))
-}
+// const { data: allPosts } = await useFetch('/api/blog/posts')
+// 使用默认数据代替
+const allPosts = ref(Array.from({ length: 10 }, (_, i) => ({
+  id: i + 10,
+  title: `最新文章 ${i + 1}`,
+  slug: `latest-post-${i + 1}`,
+  excerpt: '这是一篇最新发布的博客文章，内容丰富多彩。',
+  image: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png',
+  published_at: new Date(Date.now() - i * 86400000).toISOString(),
+  category: ['行业动态', '产品技巧', '公司新闻', '客户案例', '技术分享'][i % 5],
+  author: {
+    name: ['张三', '李四', '王五', '赵六', '钱七'][i % 5],
+    avatar: 'https://www.nuxtjs.cn/NUXTJS-logo-800.png'
+  }
+})))
 
 // 计算最新文章
 const recentPosts = computed(() => {
@@ -410,7 +395,7 @@ function slugify(text: string) {
 }
 
 .prose a {
-  @apply text-primary-600 dark:text-primary-400 hover:underline;
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
 }
 
 .prose blockquote {
